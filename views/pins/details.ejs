@@ -1,0 +1,38 @@
+<% layout('layout') %>
+
+<style>
+  .card{
+    margin: 0 auto;
+    float: none;
+    margin-bottom: 10px;
+  }
+</style>
+<element></element>
+
+<div class="container">
+  <div class="card" style="width: 30rem;">
+    <img class="card-img-top" src="<%= pin.path %>" />
+    <div class="card-block">
+      <h4 class="card-title"><%= pin.title %></h4>
+      <p class="card-text"><%= pin.desc %></p>
+      <div class="btn-group pull-right">
+          <a class="btn btn-default" href="/pins/pin-save/<%= pin._id %>" eval="save($this,data)">
+              <span class="fa <%- (pin.isSave)? 'fa-star':'fa-star-o' %> fa-lg"></span>
+          </a>
+          <a ajax-target="#partial.cls" class="btn btn-default" href="/pins/edit/<%= pin._id %>">Edit</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="partial" class="cls"></div>
+
+<script>
+  function save($this,data){
+    if(data){//true
+      $this.find('span').attr('class','fa fa-star');
+    }else{
+      $this.find('span').attr('class','fa fa-star-o');
+    }
+  }
+</script>

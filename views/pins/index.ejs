@@ -1,0 +1,17 @@
+<%layout('layout')%>
+
+<div class="container">
+  <div id="pins">
+    <% for(var i = 0; i < pins.length; i++) { %>
+      <div class="box" style="margin:20px">
+        <a href="/pins/details/<%= pins[i]._id %>"><img src="<%= pins[i].path %>" style="width: 200px" /></a>
+        <h2><a href="/pins/details/<%= pins[i]._id %>"></a> <%= pins[i].title %></h2>
+        <p>
+            Submitted by <%= pins[i].username %>
+
+            <a class="btn btn-default" href="/pins/delete/<%= pins[i]._id %>">Delete</a>
+        </p>
+      </div>
+      <% } %>
+  </div>
+</div>

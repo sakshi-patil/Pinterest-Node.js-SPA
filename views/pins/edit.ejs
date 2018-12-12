@@ -1,0 +1,21 @@
+<% layout('layout') %>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-10">
+      <h1>Create a New Pin</h1>
+      <form action="/pins/edit/<%= pin._id %>" role="form" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" name="title" value="<%= pin.title %>" />
+        </div>
+        <div class="form-group">
+            <label for="desc">Description:</label>
+            <textarea type="text" class="form-control" name="desc"><%= pin.desc %> </textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
