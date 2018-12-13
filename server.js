@@ -6,7 +6,6 @@ var ejs = require('ejs');
 var engine = require('ejs-mate');
 var fileUpload = require('express-fileupload');
 
-
 var app = express();
 
 mongoose.connect('mongodb://root:sakshi123@ds229474.mlab.com:29474/pinterest',function(err){
@@ -28,6 +27,11 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(morgan('dev'));
+app.use(function(req,res,next){
+  res.locals.ajax = req.xhr;
+  res.setHeader('Location',req.url);
+  next();
+})
 
 
 require('./routes/main')(app);

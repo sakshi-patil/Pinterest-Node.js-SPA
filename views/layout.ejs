@@ -1,3 +1,10 @@
+<% if(ajax) { %>
+
+  <%- body -%>
+
+  <% } else{ %>
+
+
 
 <!doctype html>
 <html lang="en">
@@ -11,16 +18,51 @@
     <title>Jumbotron Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/css/sidebar.css" rel="stylesheet">
+
   </head>
 
   <body>
 
+    <div class="modal fade" id="globalModal">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="globalModalContent">
+          <p>Modal body text goes here.</p>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/pins/create"> <span class="fa fa-plus" aria-hidden="true"></span> New Pin</a>
+        <a href="/pins/saved-pins"><span class="fa fa-star" aria-hidden="true"></span>Saved Pins</a>
+        <a href="/"><span class="fa fa-user" aria-hidden="true"></span> Pins</a>
+
+      </div>
+
+<div id="main">
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Pins</a>
+      <span style="font-size:30px;cursor:pointer; background-color:red" onclick="openNav()">&#9776;</span>
+      <a class="navbar-brand" href="/pins/index" class="stopAjax">Pins</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -30,10 +72,13 @@
           <li class="nav-item active">
             <a class="nav-link" href="/pins/create">New pin <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/pins/saved-pins">Saved pins <span class="sr-only">(current)</span></a>
+          </li>
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <form method="get" action="/pins/pin-search" class="form-inline my-2 my-lg-0 stopAjax">
+          <input name="search" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
@@ -41,18 +86,41 @@
 
     <main role="main">
       <div class="container" style="margin: 20px">
+        <div id="toufiqElahy">
           <%- body -%>
+        </div>
       </div>
 
 
     </main>
+</div>
+<script src="/SPA/toufiqElahySPA.js"></script>
+<link href="/SPA/toufiqElahySPA.css" rel="stylesheet">
 
-   
+<script>
+
+$(function(){
+
+  $('#toufiqElahy').toufiqSPA();
+})
+
+
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
   </body>
 </html>
+<% } %>

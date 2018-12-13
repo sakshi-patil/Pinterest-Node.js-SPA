@@ -8,10 +8,35 @@
         <h2><a href="/pins/details/<%= pins[i]._id %>"></a> <%= pins[i].title %></h2>
         <p>
             Submitted by <%= pins[i].username %>
-
-            <a class="btn btn-default" href="/pins/delete/<%= pins[i]._id %>">Delete</a>
+            <a onClick="conf(event)" eval="del($this,data)" class="btn btn-default" href="/pins/delete/<%= pins[i]._id %>">Delete</a>
         </p>
       </div>
       <% } %>
   </div>
 </div>
+
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+<script>
+function conf(event){
+		if(confirm('do you really want to delete this?')==false){
+			event.stopPropagation();	//it will prevent the further event bidings
+			event.preventDefault();		//and it will prevent using this framework's ajax method
+		}
+	}
+
+function del($this,data){
+  if(data){
+    //$this.closest('.box').remove();
+    $('#pins').masonry( 'remove', $this.closest('.box') );
+    $('#pins').masonry( 'layout' );
+  }
+}
+  $(function(){
+    return $('#pins').imagesLoaded(function(){
+      return $('#pins').masonry({
+        itemSelector: '.box',
+        isFitWidth: true
+      })
+    })
+  })
+</script>
